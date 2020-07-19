@@ -3,10 +3,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def select_signup
   end
 
+  # STEP1
   def new
     @user = User.new
   end
 
+  # STEP2
   def create
     @user = User.new(sign_up_params)
     unless @user.valid?
@@ -19,6 +21,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     render :new_destination
   end
 
+  # ユーザー登録
   def create_destination
     @user = User.new(session["devise.regist_data"]["user"])
     @destination = PurchaseDestination.new(destination_params)

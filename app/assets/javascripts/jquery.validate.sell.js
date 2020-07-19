@@ -1,13 +1,17 @@
 $(function () {
+  // ルールの追加
   var methods = {
     selectbox: function (value, element, arg) {
       return arg !== value;
     }
   }
+  // メソッドの追加
   $.each(methods, function (key) {
     $.validator.addMethod(key, this);
   });
+
   $("#sell-form").validate({
+    // ルールの作成(ルール内容はmessage_ja.js)
     rules: {
       "product[name]"                     : { required: true, maxlength: 40 },
       "product[description]"              : { required: true, maxlength: 1000 },
@@ -22,9 +26,12 @@ $(function () {
       "product[shipping_day]"             : { selectbox: "" },
       "product[price]"                    : { required: true, number: true, min: 300, max: 9999999 }
     },
+    // バリデーションエラーメッセージのカスタム
     messages: {
       "product[price]"                    : { min: "¥300以上の金額を入力してください。", max: "¥9,999,999以下の金額を入力してください。" }
     },
+
+    // 表示場所の変更
     errorPlacement: function(error, element){
       if(element.attr('name') === "category_large[category_large]"){
         error.insertAfter('.sell-main__product-details__contents__category__title.category-box__large');
